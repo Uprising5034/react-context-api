@@ -1,12 +1,14 @@
 import React, { ChangeEventHandler, useContext, useState } from "react";
 import imgDoge from "../assets/images/doge.jpg";
-import { AppContext } from "../App";
+import { AppContext, UserContext } from "../App";
 
 export default function CreateTweet() {
-  const { user, theme, tweets, setTweets } = useContext(AppContext);
+  const user = useContext(UserContext);
+  const { theme, tweets, setTweets } = useContext(AppContext);
+  
   const [content, setContent] = useState("");
 
-  const addTweet = (event: React.FormEvent<HTMLFormElement>) => void {
+  const addTweet = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setTweets([
       {
@@ -34,7 +36,6 @@ export default function CreateTweet() {
         <div className="textarea-section">
           <textarea
             className="content"
-            type="text"
             placeholder="What is happening?!"
             value={content}
             onChange={(event) => setContent(event.target.value)}

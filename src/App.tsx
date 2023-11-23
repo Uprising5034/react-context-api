@@ -8,8 +8,8 @@ import user from "./assets/data/user.js";
 type ThemeType = "light" | "dark";
 
 const ThemeContext = createContext<ThemeType>("light");
-const userContext = createContext(user)
-const AppContext = createContext(undefined);
+const UserContext = createContext(user);
+const AppContext = createContext();
 
 function retrieveTheme(): ThemeType {
   const themeData = localStorage.getItem("theme");
@@ -35,7 +35,9 @@ function App() {
     <ThemeContext.Provider value={theme}>
       <AppContext.Provider value={{ user, tweets, theme, setTheme, setTweets }}>
         <div className="container">
-          <Header />
+          <UserContext.Provider value={ user }>
+            <Header />
+          </UserContext.Provider>
           <Tweets />
           <RightSide />
         </div>
@@ -46,4 +48,4 @@ function App() {
 
 // NOTE! Instead of `export default App` we use `export { App }` here because we have
 // more than one thing to export from this file.
-export { App, AppContext };
+export { App, AppContext, ThemeContext, UserContext };
